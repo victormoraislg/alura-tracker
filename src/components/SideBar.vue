@@ -25,10 +25,10 @@ export default defineComponent({
   computed: {
     buttonText() {
       if (this.darkModeActivated) {
-        return 'Turn off dark mode';
+        return 'Disable dark mode';
       }
 
-      return 'Turn on dark mode';
+      return 'Enable dark mode';
     }
   },
   methods: {
