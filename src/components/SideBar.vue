@@ -3,6 +3,9 @@
     <h1>
       <img src="../assets/logo.png">
     </h1>
+    <button class="button" @click="changeThemeColor">
+      {{ buttonText }}
+    </button>
   </header>
 </template>
 
@@ -10,7 +13,30 @@
 import { defineComponent } from 'vue';
 
 export default defineComponent({
-  name: 'SideBar'
+  name: 'SideBar',
+  emits: [
+    'onChangeThemeColor'
+  ],
+  data() {
+    return {
+      darkModeActivated: false
+    };
+  },
+  computed: {
+    buttonText() {
+      if (this.darkModeActivated) {
+        return 'Turn off dark mode';
+      }
+
+      return 'Turn on dark mode';
+    }
+  },
+  methods: {
+    changeThemeColor() {
+      this.darkModeActivated = !this.darkModeActivated;
+      this.$emit('onChangeThemeColor', this.darkModeActivated);
+    }
+  }
 });
 </script>
 
@@ -20,6 +46,7 @@ header {
   width: 100%;
   height: 100vh;
   padding: 1rem;
+  text-align: center;
 }
 
 @media only screen and (max-width: 768px) {
