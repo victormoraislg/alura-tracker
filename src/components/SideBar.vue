@@ -6,6 +6,22 @@
     <button class="button" @click="changeThemeColor">
       {{ buttonText }}
     </button>
+    <nav class="panel mt-5">
+      <ul>
+        <li>
+          <RouterLink to="/" class="link">
+            <i class="fas fa-tasks"></i>
+            Tasks
+          </RouterLink>
+        </li>
+        <li>
+          <RouterLink to="/projects" class="link">
+            <i class="fas fa-project-diagram"></i>
+            Projects
+          </RouterLink>
+        </li>
+      </ul>
+    </nav>
   </header>
 </template>
 
@@ -54,5 +70,22 @@ header {
     padding: 2.5rem;
     height: auto;
   }
+}
+
+.panel li {
+  margin: 8px 0;
+  text-align: left;
+}
+
+.link {
+  color: #fff;
+}
+
+.link:hover {
+  color: #FAF0CA;
+}
+
+.link.router-link-active {
+  color: #FAF0CA;
 }
 </style>
