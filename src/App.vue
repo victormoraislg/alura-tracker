@@ -4,6 +4,7 @@
       <SideBar @onChangeThemeColor="changeThemeColor"/>
     </div>
     <div class="column is-10 content">
+      <DefaultNotification/>
       <RouterView></RouterView>
     </div>
   </main>
@@ -12,11 +13,13 @@
 <script lang="ts">
 import { defineComponent } from 'vue';
 import SideBar from './components/SideBar.vue';
+import DefaultNotification from '@/components/Notification.vue';
 
 export default defineComponent({
   name: 'App',
   components: {
     SideBar,
+    DefaultNotification,
   },
   data() {
     return {

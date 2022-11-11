@@ -16,6 +16,8 @@
 import { useStore } from '@/store';
 import { defineComponent } from 'vue';
 import { ADD_PROJECT, EDIT_PROJECT } from '@/store/mutations';
+import { NotificationType } from '@/interfaces/INotification';
+import useNotifier from '@/hooks/notifier';
 
 export default defineComponent({
   name: 'FormView',
@@ -47,14 +49,17 @@ export default defineComponent({
       }
 
       this.projectName = '';
+      this.notify(NotificationType.SUCCESS, 'Excelent!', 'The project was saved successfully!');
       this.$router.push('/projects');
     }
   },
   setup() {
     const store = useStore();
+    const { notify } = useNotifier();
 
     return {
-      store
+      store,
+      notify
     }
   }
 });
