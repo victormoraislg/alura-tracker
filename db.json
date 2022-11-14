@@ -1,0 +1,16 @@
+{
+  "projects": [
+    {
+      "name": "Alura tracker",
+      "id": 1
+    },
+    {
+      "id": 2,
+      "name": "Vue.js 3"
+    },
+    {
+      "name": "Wordpress",
+      "id": 3
+    }
+  ]
+}

@@ -1,0 +1,5 @@
+export const GET_PROJECTS = 'GET_PROJECTS';
+export const CREATE_PROJECT = 'CREATE_PROJECT';
+export const ALTER_PROJECT = 'ALTER_PROJECT';
+export const REMOVE_PROJECT = 'REMOVE_PROJECT';
+

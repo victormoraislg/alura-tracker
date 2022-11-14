@@ -15,9 +15,9 @@
 <script lang="ts">
 import { useStore } from '@/store';
 import { defineComponent } from 'vue';
-import { ADD_PROJECT, EDIT_PROJECT } from '@/store/mutations';
 import { NotificationType } from '@/interfaces/INotification';
 import useNotifier from '@/hooks/notifier';
+import { CREATE_PROJECT, ALTER_PROJECT } from '@/store/actions';
 
 export default defineComponent({
   name: 'FormView',
@@ -40,14 +40,19 @@ export default defineComponent({
   methods: {
     saveProject() {
       if (this.id) {
-        this.store.commit(EDIT_PROJECT, {
+        this.store.dispatch(ALTER_PROJECT, {
           id: this.id,
           name: this.projectName
-        });
+        })
+        .then(() => this.projectSaved());
       } else {
-        this.store.commit(ADD_PROJECT, this.projectName);
+        this.store.dispatch(CREATE_PROJECT, this.projectName)
+        .then(() => this.projectSaved());
       }
 
+
+    },
+    projectSaved() {
       this.projectName = '';
       this.notify(NotificationType.SUCCESS, 'Excelent!', 'The project was saved successfully!');
       this.$router.push('/projects');
