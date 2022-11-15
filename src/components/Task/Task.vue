@@ -1,6 +1,6 @@
 <template>
   <BoxItem>
-    <div class="columns">
+    <div class="columns clickable" @click="taskSelected">
       <div class="column is-4">
         {{ task.description || 'Task description' }}
       </div>
@@ -22,9 +22,15 @@ import BoxItem from '@/components/Box.vue';
 
 export default defineComponent({
   name: 'TaskItem',
+  emits: ['onTaskSelected'],
   components: {
     TaskTimerCounter,
     BoxItem
+  },
+  methods: {
+    taskSelected(): void {
+      this.$emit('onTaskSelected', this.task);
+    }
   },
   props: {
     task: {
@@ -34,3 +40,9 @@ export default defineComponent({
   }
 });
 </script>
+
+<style scoped>
+.clickable {
+  cursor: pointer;
+}
+</style>

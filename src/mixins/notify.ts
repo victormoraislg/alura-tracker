@@ -1,5 +1,5 @@
 import { NotificationType } from "@/interfaces/INotification";
-import { NOTIFY } from "@/store/mutations";
+import { NOTIFY } from "@/store/actions";
 import { store } from '@/store';
 
 export const notifyMixin = {

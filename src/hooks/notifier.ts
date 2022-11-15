@@ -1,6 +1,6 @@
 import { NotificationType } from "@/interfaces/INotification";
 import { store } from '@/store';
-import { NOTIFY } from '@/store/mutations';
+import { NOTIFY } from '@/store/actions';
 
 type Notifier = {
   notify: (type: NotificationType, title: string, text: string) => void

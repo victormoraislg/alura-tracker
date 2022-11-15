@@ -39,21 +39,21 @@
 <script lang="ts">
 import { useStore } from '@/store';
 import { computed, defineComponent } from 'vue';
-import { GET_PROJECTS, REMOVE_PROJECT } from '@/store/actions';
+import { REQUEST_PROJECTS, DELETE_PROJECT } from '@/store/actions';
 
 export default defineComponent({
   name: 'ListView',
   methods: {
     deleteProject(id: string) {
-      this.store.dispatch(REMOVE_PROJECT, id);
+      this.store.dispatch(DELETE_PROJECT, id);
     }
   },
   setup() {
     const store = useStore();
-    store.dispatch(GET_PROJECTS);
+    store.dispatch(REQUEST_PROJECTS);
 
     return {
-      projects: computed(() => store.state.projects),
+      projects: computed(() => store.state.projects.data),
       store
     }
   }

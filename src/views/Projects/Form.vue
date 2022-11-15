@@ -17,7 +17,7 @@ import { useStore } from '@/store';
 import { defineComponent } from 'vue';
 import { NotificationType } from '@/interfaces/INotification';
 import useNotifier from '@/hooks/notifier';
-import { CREATE_PROJECT, ALTER_PROJECT } from '@/store/actions';
+import { CREATE_PROJECT, EDIT_PROJECT } from '@/store/actions';
 
 export default defineComponent({
   name: 'FormView',
@@ -28,7 +28,7 @@ export default defineComponent({
   },
   mounted() {
     if (this.id) {
-      const project = this.store.state.projects.find(p => p.id == this.id);
+      const project = this.store.state.projects.data.find(p => p.id == this.id);
       this.projectName = project?.name || '';
     }
   },
@@ -40,7 +40,7 @@ export default defineComponent({
   methods: {
     saveProject() {
       if (this.id) {
-        this.store.dispatch(ALTER_PROJECT, {
+        this.store.dispatch(EDIT_PROJECT, {
           id: this.id,
           name: this.projectName
         })
