@@ -21,7 +21,7 @@
     {
       "id": 1,
       "durationInSeconds": 120,
-      "description": "Creating new router controler 2",
+      "description": "Creating new router controler",
       "project": {
         "id": 1,
         "name": "Alura tracker 2"
