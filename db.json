@@ -2,15 +2,19 @@
   "projects": [
     {
       "id": 1,
-      "name": "Alura tracker 2"
+      "name": "Alura tracker"
     },
     {
       "id": 2,
       "name": "Vue.js 3"
     },
     {
-      "name": "Wordpress",
-      "id": 3
+      "id": 3,
+      "name": "Wordpress Plugin Development"
+    },
+    {
+      "name": "Wordpress Theme Development",
+      "id": 4
     }
   ],
   "tasks": [
@@ -31,6 +35,42 @@
         "name": "Alura tracker 2"
       },
       "id": 2
+    },
+    {
+      "durationInSeconds": 1,
+      "description": "Test",
+      "project": {
+        "id": 1,
+        "name": "Alura tracker"
+      },
+      "id": 3
+    },
+    {
+      "durationInSeconds": 1,
+      "description": "Filling",
+      "project": {
+        "id": 1,
+        "name": "Alura tracker"
+      },
+      "id": 4
+    },
+    {
+      "durationInSeconds": 2,
+      "description": "Creating RSVP plugin 2",
+      "project": {
+        "id": 3,
+        "name": "Wordpress Plugin Development"
+      },
+      "id": 5
+    },
+    {
+      "durationInSeconds": 2,
+      "description": "Composition API vs Options API",
+      "project": {
+        "id": 2,
+        "name": "Vue.js 3"
+      },
+      "id": 6
     }
   ]
 }

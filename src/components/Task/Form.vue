@@ -23,39 +23,38 @@
 
 import { key } from '@/store';
 import { computed } from '@vue/reactivity';
-import { defineComponent } from 'vue';
+import { defineComponent, ref } from 'vue';
 import { useStore } from 'vuex';
 import TaskTimer from './Timer.vue';
 
 export default defineComponent({
   name: 'TaskForm',
-  emits: [
-    'onSaveTask'
-  ],
+  emits: ['onSaveTask'],
   components: {
     TaskTimer
   },
-  data() {
-    return {
-      taskDescription: '',
-      projectId: '',
-    };
-  },
-  methods: {
-    archiveTask(timeInSeconds: number) : void {
-      this.$emit('onSaveTask', {
-        durationInSeconds: timeInSeconds,
-        description: this.taskDescription,
-        project: this.projects.find(proj => proj.id == this.projectId)
-      });
-      this.taskDescription = '';
-    },
-  },
-  setup() {
+  setup(props, { emit }) {
     const store = useStore(key);
+
+    const taskDescription = ref("");
+    const projectId = ref("");
     
+    const projects = computed(() => store.state.projects.data);
+
+    const archiveTask = (timeInSeconds: number) : void => {
+      emit('onSaveTask', {
+        durationInSeconds: timeInSeconds,
+        description: taskDescription.value,
+        project: projects.value.find(proj => proj.id == projectId.value)
+      });
+      taskDescription.value = '';
+    }
+
     return {
-      projects: computed(() => store.state.projects.data)
+      taskDescription,
+      projectId,
+      projects,
+      archiveTask
     }
   }
 });

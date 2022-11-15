@@ -14,10 +14,11 @@
 
 <script lang="ts">
 import { useStore } from '@/store';
-import { defineComponent } from 'vue';
+import { defineComponent, ref } from 'vue';
 import { NotificationType } from '@/interfaces/INotification';
 import useNotifier from '@/hooks/notifier';
 import { CREATE_PROJECT, EDIT_PROJECT } from '@/store/actions';
+import { useRouter } from 'vue-router';
 
 export default defineComponent({
   name: 'FormView',
@@ -26,45 +27,40 @@ export default defineComponent({
       type: String,
     }
   },
-  mounted() {
-    if (this.id) {
-      const project = this.store.state.projects.data.find(p => p.id == this.id);
-      this.projectName = project?.name || '';
-    }
-  },
-  data() {
-    return {
-      projectName: ''
-    };
-  },
-  methods: {
-    saveProject() {
-      if (this.id) {
-        this.store.dispatch(EDIT_PROJECT, {
-          id: this.id,
-          name: this.projectName
-        })
-        .then(() => this.projectSaved());
-      } else {
-        this.store.dispatch(CREATE_PROJECT, this.projectName)
-        .then(() => this.projectSaved());
-      }
-
-
-    },
-    projectSaved() {
-      this.projectName = '';
-      this.notify(NotificationType.SUCCESS, 'Excelent!', 'The project was saved successfully!');
-      this.$router.push('/projects');
-    }
-  },
-  setup() {
+  setup(props) {
     const store = useStore();
+    const projectName = ref();
     const { notify } = useNotifier();
+    const router = useRouter();
+
+
+    if (props.id) {
+      const project = store.state.projects.data.find(p => p.id == props.id);
+      projectName.value = project?.name || '';
+    }
+
+    const projectSaved = () => {
+      projectName.value = '';
+      notify(NotificationType.SUCCESS, 'Excelent!', 'The project was saved successfully!');
+      router.push('/projects');
+    }
+
+    const saveProject = () => {
+      if (props.id) {
+        store.dispatch(EDIT_PROJECT, {
+          id: props.id,
+          name: projectName.value
+        })
+        .then(() => projectSaved());
+      } else {
+        store.dispatch(CREATE_PROJECT, projectName.value)
+        .then(() => projectSaved());
+      }
+    }
 
     return {
-      store,
-      notify
+      projectName,
+      saveProject
     }
   }
 });
