@@ -1,6 +1,14 @@
 <template>
   <TaskForm @onSaveTask="saveTask"/>
   <div class="list">
+    <div class="field">
+      <p class="control has-icons-left">
+        <input class="input" type="text" placeholder="Search" v-model="search_term">
+        <span class="icon is-small is-left">
+          <i class="fas fa-search"></i>
+        </span>
+      </p>
+    </div>
     <BoxItem v-if="taskListIsEmpty">
       Apparently you haven't started any task yet.
     </BoxItem>
@@ -28,7 +36,7 @@
 </template>
 
 <script lang="ts">
-import { defineComponent } from 'vue';
+import { defineComponent, ref, watchEffect } from 'vue';
 import TaskForm from '../components/Task/Form.vue';
 import TaskItem from '../components/Task/Task.vue';
 import ITask from '../interfaces/ITask';
@@ -50,8 +58,8 @@ export default defineComponent({
     }
   },
   computed: {
-    taskListIsEmpty() : boolean {
-      return this.tasks.length === 0;
+    taskListIsEmpty() {
+      return false;
     },
   },
   methods: {
@@ -74,9 +82,16 @@ export default defineComponent({
     store.dispatch(REQUEST_TASKS);
     store.dispatch(REQUEST_PROJECTS);
 
+    const search_term = ref('');
+
+    watchEffect(() => {
+      store.dispatch(REQUEST_TASKS, search_term.value)
+    });
+
     return {
       tasks: computed(() => store.state.tasks.data),
-      store
+      store,
+      search_term
     }
   }
 });
